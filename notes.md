@@ -65,10 +65,11 @@ apt-mark hold kubelet kubeadm kubectl containerd
 ```
 ---
 
-# issue 
+# issues
 
 ### problem
 
+gpg key 
 
 ### solution
 
@@ -85,3 +86,5 @@ echo "deb [signed-by=/etc/apt/keyrings/EXAMPLE.gpg] https://example.com/apt stab
 ---
 
 
+### archtecture diagram
+https://excalidraw.com/#json=vL_8TFnAfwHhn1TIGoIAO,8lBEyea--IbZxrsq76DHSA
