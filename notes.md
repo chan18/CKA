@@ -57,3 +57,9 @@ echo "deb [signed-by=/etc/apt/keyrings/EXAMPLE.gpg] https://example.com/apt stab
 
 
 
+# vagrant 
+
+vagrant up to run all virtual environments.
+``` bash
+    vagrant up
+```
