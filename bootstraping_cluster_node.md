@@ -22,3 +22,16 @@ once the node join command intiated to joina cluster below process takes place.
 *  CA sign the CSR automatically in that cert request and kubeadm join will download the certification and sotre that on the  fils system `/var/lib/kubelet/pki` 
 *  kubeadm join will generates kubelet.conf, reference to client certificate that we just downloaded and network location of api server that we auth against.
  
+``` BASH
+kubeadm join 172.16.94.10:6443 \
+--token i0pr88.pbid2af0071xhuo1 \
+--discovery-token-ca-cert-hash \
+sha256:9a56f13bbae1f77e3a01fecc2bf8c59e6977d9c71c2d3482b988fa47767353d7
+```
+
+``` bash
+kubeadm join 10.0.2.15:6443 \
+--token d5dfqc.990qu2sytx7y99q1 \
+--discovery-token-ca-cert-hash \
+sha256:cf434d9677a2c4b179cf83a66fd6f5781211166791c98bee8cb5c8b0fba351a5
+```
