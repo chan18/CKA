@@ -37,7 +37,7 @@ apt-mark hold kubelet kubeadm kubectl containerd
 ```
 
  
-***Below setup is not working deprecation*** 
+***Below setups are not working deprecation*** 
 reaference: https://kubernetes.io/blog/2023/08/31/legacy-package-repository-deprecation/
 
 ``` bash
@@ -88,3 +88,63 @@ echo "deb [signed-by=/etc/apt/keyrings/EXAMPLE.gpg] https://example.com/apt stab
 
 ### archtecture diagram
 https://excalidraw.com/#json=vL_8TFnAfwHhn1TIGoIAO,8lBEyea--IbZxrsq76DHSA
+
+
+# bootstraping cluster
+
+```bash
+  kubeadm init
+```
+
+* pre flight checks
+* creates a certificate authority
+* generates kubeconfig files
+* generates static pod manifests
+* wait for the control plane pods to start
+* taints the control plane 
+* generates a bootstrap token.
+* starts add on componetns dns and kube-proxy.
+
+
+# certificate autority
+
+all the paramenters that we can use to pass it to the kubeadm 
+https://kubernetes.io/docs/reference/setup-tools/kubeadm/kubeadm-init/
+
+
+kubeadm init by default will create  a self-signed authority.
+
+We can allso pass custom PKI (public key infrastructure) to kubeam cli
+
+this self-signed authority used to secure cluster communications. API server uses to ssecure http stream.
+
+CA also used for authentication of users and cluster and cluster components.
+
+Path to the CA certificates are at `/etc/kubernetes/pki` 
+
+Distributed to each node
+
+# Kubeeadm created kubeconfig files.
+
+Kubeconfig file will have information on: 
+* certificates used for client communciation.
+* ip address and dns name of cluster api network location.
+
+a collection of kubeconfig files are kept at `/etc/kubernetes`
+
+Kubernetes admin account, super user inside kubernetes cluser. we use this to auth.
+* admin.conf - kubernetes- admin
+
+used to bypass authorization layer, Used when authorization is broken, in emergencies.
+* super-admin.conf - kubernetes-admin
+
+config filel for kubelet, to locate api server and present correct client certificate to authenticate
+* kubelet.conf
+
+* controller-manager.conf
+
+scheduler config is use to tell where the api server is and which certificates to use to authenticate.
+* scheduler.conf
+
+
+# static pod manifests
