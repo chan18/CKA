@@ -9,11 +9,16 @@ kubelet
 
 kubeadm join
 
-# download cluster inforamtion 
+start the process of joining to a cluster
 
-# Node submit a CSR
+network location of api server
+bootstrap token not to a cluster
+ca cert hash to rust the cert present by the api server. 
 
-# CA sign the CSR automatically
+once the node join command intiated to joina cluster below process takes place.
 
-# configures kubelet.conf
-
+* download cluster inforamtion and metadata
+*  Node submit a CSR into a api server, to generate certificate used by kubelete on the node.This is used to auth the api server.
+*  CA sign the CSR automatically in that cert request and kubeadm join will download the certification and sotre that on the  fils system `/var/lib/kubelet/pki` 
+*  kubeadm join will generates kubelet.conf, reference to client certificate that we just downloaded and network location of api server that we auth against.
+ 
