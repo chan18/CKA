@@ -6,3 +6,8 @@ I've documented my setup process for the CKA exam on my Ubuntu system using Hype
 # Architecture
 
 ![Architecture](architecture.png)
+
+
+# Networking
+![kubernetes-networking](kubernetes-networking.png)
+https://kubernetes.io/docs/concepts/cluster-administration/networking/

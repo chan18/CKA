@@ -138,7 +138,7 @@ Kubernetes admin account, super user inside kubernetes cluser. we use this to au
 used to bypass authorization layer, Used when authorization is broken, in emergencies.
 * super-admin.conf - kubernetes-admin
 
-config filel for kubelet, to locate api server and present correct client certificate to authenticate
+config file for kubelet, to locate api server and present correct client certificate to authenticate
 * kubelet.conf
 
 * controller-manager.conf
@@ -148,3 +148,23 @@ scheduler config is use to tell where the api server is and which certificates t
 
 
 # static pod manifests
+
+configuration of a pod.
+
+stored at /etc/kubernetes/manifests
+
+kubeadm will generate manifests for below each of the controle plane pod
+
+* etcd
+* API server
+* controller manager
+* scheduler
+
+Kubelet will watch this manifest file system directory and applies the changes desribed in the manifest files. 
+
+Also note that this is how a cluster starts up after reboot.
+
+# pod networking
+
+https://kubernetes.io/docs/concepts/cluster-administration/networking/
+
