@@ -1,0 +1,32 @@
+[preflight] Running pre-flight checks
+error execution phase preflight: couldn't validate the identity of the API Server: Get "https://10.0.2.15:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.0.2.15:6443: connect: connection refused
+To see the stack trace of this error execute with --v=5 or higher
+
+
+kubectl config view
+or
+kubectl cluster-info
+
+https://10.0.2.15:6443
+
+telnet 10.0.0.15 6443
+
+telnet 192.168.99.201 6443
+
+sudo kubeadm init --apiserver-advertise-address=10.0.0.15 --pod-network-cidr=10.244.0.0/16
+
+wget https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+
+- --iface=eth1
+        args:
+        - --ip-masq
+        - --kube-subnet-mgr
+        - --iface=eth1
+
+sudo ufw allow 6443/tcp
+sudo ufw allow 6443/udp
+
+sudo ufw allow 6443
+sudo ufw enable
+sudo ufw status
+sudo ufw disable

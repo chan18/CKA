@@ -1,12 +1,16 @@
 
-kubeadm join 10.0.2.15:6443 \
---token d5dfqc.990qu2sytx7y99q1 \
---discovery-token-ca-cert-hash \
-sha256:cf434d9677a2c4b179cf83a66fd6f5781211166791c98bee8cb5c8b0fba351a5
+# kubeadm join 10.0.2.15:6443 \
+# --token d5dfqc.990qu2sytx7y99q1 \
+# --discovery-token-ca-cert-hash \
+# sha256:cf434d9677a2c4b179cf83a66fd6f5781211166791c98bee8cb5c8b0fba351a5
 
 
-vagrant ssh m2
+vagrant ssh w1
+vagrant ssh w2
 
+sudo su
+
+# apt install net-tools
 
 swapoff -a
 vi /etc/fstab
@@ -90,9 +94,15 @@ exit
 
 kubeadm token create --print-join-command
 
-kubeadm join 10.0.2.15:6443 \
-    --token cxndsl.6o32b94dd4tvfn3q \
-    --discovery-token-ca-cert-hash sha256:cf434d9677a2c4b179cf83a66fd6f5781211166791c98bee8cb5c8b0fba351a5
+#below is a example
+root@m1:/home/vagrant# kubeadm token create --print-join-command
+kubeadm join 192.168.99.201:6443 \
+    --token e3vhy3.6561w3w2r3ia923a \
+    --discovery-token-ca-cert-hash sha256:782c2c092a6048bac0baf7b7c49cb1b88e5e89c9d42c1b28141ba48610a44e74 
+
+# kubeadm join 10.0.2.15:6443 \
+#     --token cxndsl.6o32b94dd4tvfn3q \
+#     --discovery-token-ca-cert-hash sha256:cf434d9677a2c4b179cf83a66fd6f5781211166791c98bee8cb5c8b0fba351a5
 
 
 vagrant ssh m2

@@ -1,12 +1,30 @@
 vagrant ssh m1
-
+sudo su
 wget https://raw.githubusercontent.com/projectcalico/calico/master/manifests/calico.yaml
 
 # edit CALICO IPV4POOL CIDR for CIDER configuration.
 # By default 192.16.0.0/16
 vi calico.yaml
 
-sudo kubeadm init --kubernetes-version v1.29.1
+# if want to uninstall kubeadm
+# ip route flush proto bird
+# ip link list | grep cali | awk '{print $2}' | cut -c 1-15 | xargs -I {} ip link delete {}
+# modprobe -r ipip
+# rm /etc/cni/net.d/10-calico.conflist && rm /etc/cni/net.d/calico-kubeconfig
+# service kubelet restart
+# kubeadm reset
+
+sudo kubeadm init --apiserver-advertise-address=192.168.99.201 --pod-network-cidr=192.168.99.0/24 --kubernetes-version v1.29.1
+
+# enp0s8: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
+#         inet 192.168.99.201  netmask 255.255.255.0  broadcast 192.168.99.255
+#         inet6 fe80::a00:27ff:fe8e:6fd8  prefixlen 64  scopeid 0x20<link>
+#         ether 08:00:27:8e:6f:d8  txqueuelen 1000  (Ethernet)
+#         RX packets 0  bytes 0 (0.0 B)
+#         RX errors 0  dropped 0  overruns 0  frame 0
+#         TX packets 19  bytes 1486 (1.4 KB)
+#         TX errors 0  dropped 0 overruns 0  carrier 0  collisions 0
+#kubeadm init --apiserver-advertise-address=192.168.99.201 --pod-network-cidr=192.168.99.0/24 > /root/kubeinit.log 2>/dev/null
 
 # sudo kubeadm init --kubernetes-version v1.29.1
 # [init] Using Kubernetes version: v1.29.1
