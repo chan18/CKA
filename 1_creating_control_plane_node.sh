@@ -61,7 +61,7 @@ kubectl get pods --all-namespaces
 
 kubectl get nodes 
 
-sudo systemctl status kubelet.service 
+sudo systemctl status kubelet.service
 
 ls /etc/kubernetes/manifests
 
