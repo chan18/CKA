@@ -73,13 +73,7 @@ sudo curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo g
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
 
-sudo apt-get update
-apt-cache policy kubelet | head -n 20 
-
-
-VERSION=1.29.1-1.1
-sudo apt-get install -y kubelet=$VERSION kubeadm=$VERSION kubectl=$VERSION 
-sudo apt-mark hold kubelet kubeadm kubectl containerd
+sudo apt-get update && apt-cache policy kubelet | head -n 20 && VERSION=1.29.1-1.1 && sudo apt-get install -y kubelet=$VERSION kubeadm=$VERSION kubectl=$VERSION && sudo apt-mark hold kubelet kubeadm kubectl containerd
 
 
 
@@ -95,10 +89,26 @@ exit
 kubeadm token create --print-join-command
 
 #below is a example
-root@m1:/home/vagrant# kubeadm token create --print-join-command
-kubeadm join 192.168.99.201:6443 \
-    --token e3vhy3.6561w3w2r3ia923a \
-    --discovery-token-ca-cert-hash sha256:782c2c092a6048bac0baf7b7c49cb1b88e5e89c9d42c1b28141ba48610a44e74 
+kubeadm join 10.0.2.15:6443 --token 1yic8v.arlphetzvf9r6yrb --discovery-token-ca-cert-hash sha256:c9e5270b75aa6060013c11f10e53b35a5bbd4356b2887861d5fec03a28617a6e  --v=5
+
+kubeadm join 192.168.99.201:6443 --token 1u5s37.3vz878ijrsd3lcwz --discovery-token-ca-cert-hash sha256:1af8ca21c158a1e2981a472d59f92f370188df5ae384e6123c8ee6dd13892802 --v=5
+
+curl -vvv http://192.168.99.201:6443 
+curl -vvv http://10.0.2.15:6443
+
+telnet 92.168.99.201 6443
+telnet 10.0.2.15 6443
+192.168.99.201:6443
+
+ping 92.168.99.201
+
+ping 10.0.2.15
+
+telnet 10.0.2.15 6443
+
+
+
+
 
 # kubeadm join 10.0.2.15:6443 \
 #     --token cxndsl.6o32b94dd4tvfn3q \
@@ -108,9 +118,6 @@ kubeadm join 192.168.99.201:6443 \
 vagrant ssh m2
 
 
-kubeadm join 10.0.2.15:6443 \
-    --token cxndsl.6o32b94dd4tvfn3q \
-    --discovery-token-ca-cert-hash sha256:cf434d9677a2c4b179cf83a66fd6f5781211166791c98bee8cb5c8b0fba351a5
 
 exit
 
@@ -131,3 +138,45 @@ kubectl get nodes
 #GO BACK TO THE TOP AND DO THE SAME FOR c1-node2 and c1-node3
 #Just SSH into c1-node2 and c1-node3 and run the commands again.
 
+
+# trouble shooting steps
+
+iptables -P INPUT ACCEPT
+iptables -P FORWARD ACCEPT
+iptables -P OUTPUT ACCEPT
+iptables -t nat -F
+iptables -t mangle -F
+iptables -F
+iptables -X 
+iptables-save | grep -v KUBE | grep -v cali > clear.rules 
+iptables-restore < clear.rules
+modprobe overlay && modprobe br_netfilter && echo '1' > /proc/sys/net/ipv4/ip_forward
+## join again when deleted node:
+kubeadm join 192.168.1.195:6443 --token 2z5bhp.y9o0t1ppe4t28wtx --discovery-token-ca-cert-hash sha256:adfe17ca3aef931d9c46a373a5899edfeed4b41486b9d9c3a611dd0e074e5dab --v=5
+# backup rules for next time reboot after all node ready:
+iptables-save > /etc/sysconfig/iptables
+
+
+ssh to the node
+systemctl status kubectl <== Check service status
+systemctl restart kubectl <== Try restart the service
+journalctl -u kubectl <== If restart fails, check service log to find more detail for the failure, fix, restart
+
+systemctl status kubelet 
+
+systemctl status kubelet --no-pager --full
+
+kubectl get node
+kubectl delete node w1 -n kube-system
+
+
+kubectl get nodes -o wide
+kubectl get pods --all-namespaces -o wide
+
+kubectl get pods -n kube-system -o wide | grep w1 | grep kube-proxy
+kubectl get pods -n kube-system -o wide | grep w1 | grep calico-node
+
+kubectl get pods -n kube-system
+kubectl describe pod calico-node-mrdnv -n kube-system
+kubectl logs calico-node-mrdnv -n kube-system
+kubectl get events

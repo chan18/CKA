@@ -14,7 +14,12 @@ vi calico.yaml
 # service kubelet restart
 # kubeadm reset
 
-sudo kubeadm init --apiserver-advertise-address=192.168.99.201 --pod-network-cidr=192.168.99.0/24 --kubernetes-version v1.29.1
+
+
+sudo kubeadm init --apiserver-advertise-address=192.168.99.201 --pod-network-cidr=10.244.0.0/16 --kubernetes-version v1.29.1 --v=5
+
+kubectl get nodes -o jsonpath='{.items[*].spec.podCIDR}'
+
 
 # enp0s8: flags=4163<UP,BROADCAST,RUNNING,MULTICAST>  mtu 1500
 #         inet 192.168.99.201  netmask 255.255.255.0  broadcast 192.168.99.255

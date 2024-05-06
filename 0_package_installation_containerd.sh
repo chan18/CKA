@@ -48,12 +48,7 @@ sudo curl -fsSL https://pkgs.k8s.io/core:/stable:/v1.29/deb/Release.key | sudo g
 
 echo 'deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/v1.29/deb/ /' | sudo tee /etc/apt/sources.list.d/kubernetes.list
 
-sudo apt-get update
-apt-cache policy kubelet | head -n 20 
-
-VERSION=1.29.1-1.1
-sudo apt-get install -y kubelet=$VERSION kubeadm=$VERSION kubectl=$VERSION 
-sudo apt-mark hold kubelet kubeadm kubectl containerd
+sudo apt-get update && apt-cache policy kubelet | head -n 20 && VERSION=1.29.1-1.1 && sudo apt-get install -y kubelet=$VERSION kubeadm=$VERSION kubectl=$VERSION && sudo apt-mark hold kubelet kubeadm kubectl containerd
 
 sudo systemctl status kubelet.service
 sudo systemctl status containerd.service

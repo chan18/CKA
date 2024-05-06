@@ -1,0 +1,135 @@
+May 05 19:15:11 w1 kubelet[647]: E0505 19:15:11.793984     647 kubelet_node_status.go:544] "Error updating node status, will retry" err="error getting node \"w1\": Get \"https://192.168.99.201:6443/api/v1/nodes/w1?timeout=10s\": dial tcp 192.168.99.201:6443: connect: invalid argument"
+
+
+May 05 19:15:11 w1 kubelet[647]: E0505 19:15:11.794296     647 kubelet_node_status.go:544] "Error updating node status, will retry" err="error getting node \"w1\": Get \"https://192.168.99.201:6443/api/v1/nodes/w1?timeout=10s\": dial tcp 192.168.99.201:6443: connect: invalid argument"
+May 05 19:15:11 w1 kubelet[647]: E0505 19:15:11.794490     647 kubelet_node_status.go:544] "Error updating node status, will retry" err="error getting node \"w1\": Get \"https://192.168.99.201:6443/api/v1/nodes/w1?timeout=10s\": dial tcp 192.168.99.201:6443: connect: invalid argument"
+May 05 19:15:11 w1 kubelet[647]: E0505 19:15:11.795744     647 kubelet_node_status.go:544] "Error updating node status, will retry" err="error getting node \"w1\": Get \"https://192.168.99.201:6443/api/v1/nodes/w1?timeout=10s\": dial tcp 192.168.99.201:6443: connect: invalid argument"
+May 05 19:15:11 w1 kubelet[647]: E0505 19:15:11.795759     647 kubelet_node_status.go:531] "Unable to update node status" err="update node status exceeds retry count"
+
+
+May 05 19:15:12 w1 kubelet[647]: E0505 19:15:12.076705     647 event.go:355] "Unable to write event (may retry after sleeping)" err="Patch \"https://192.168.99.201:6443/api/v1/namespaces/kube-system/events/calico-node-6qbjl.17ccaca4a5cfc848\": dial tcp 192.168.99.201:6443: connect: invalid argument" event=<
+
+
+May 05 19:15:12 w1 kubelet[647]:         &Event{ObjectMeta:{calico-node-6qbjl.17ccaca4a5cfc848  kube-system    0 0001-01-01 00:00:00 +0000 UTC <nil> <nil> map[] map[] [] [] []},InvolvedObject:ObjectReference{Kind:Pod,Namespace:kube-system,Name:calico-node-6qbjl,UID:ab1788ae-81b2-4905-9df0-33608d98b4ab,APIVersion:v1,ResourceVersion:17106,FieldPath:spec.containers{calico-node},},Reason:Unhealthy,Message:(combined from similar events): Readiness probe failed: 2024-05-05 19:14:30.963 [INFO][6242] confd/health.go 202: Number of node(s) with BGP peering established = 0
+May 05 19:15:12 w1 kubelet[647]:         calico/node is not ready: BIRD is not ready: BGP not established with 192.168.99.201,192.168.99.212
+May 05 19:15:12 w1 kubelet[647]:         ,Source:EventSource{Component:kubelet,Host:w1,},FirstTimestamp:2024-05-05 18:56:21.277788232 +0000 UTC m=+721.785078704,LastTimestamp:2024-05-05 19:14:30.969611895 +0000 UTC m=+1811.476902352,Count:168,Type:Warning,EventTime:0001-01-01 00:00:00 +0000 UTC,Series:nil,Action:,Related:nil,ReportingController:,ReportingInstance:,}
+May 05 19:15:12 w1 kubelet[647]:  >
+
+
+
+
+
+
+
+root@w1:/home/vagrant# kubeadm join 10.0.2.15:6443 --token xhz2z7.nvx2m1rfy4s2173y --discovery-token-ca-cert-hash sha256:00e111b0b69d2a0741ac7cffdff5aa0b950fd36ed07289da3f31cf0fe62a64d5 --v=5
+I0505 21:41:00.565975    8598 join.go:413] [preflight] found NodeName empty; using OS hostname as NodeName
+I0505 21:41:00.572322    8598 initconfiguration.go:122] detected and using CRI socket: unix:///var/run/containerd/containerd.sock
+[preflight] Running pre-flight checks
+I0505 21:41:00.588634    8598 preflight.go:93] [preflight] Running general checks
+I0505 21:41:00.589298    8598 checks.go:280] validating the existence of file /etc/kubernetes/kubelet.conf
+I0505 21:41:00.589541    8598 checks.go:280] validating the existence of file /etc/kubernetes/bootstrap-kubelet.conf
+I0505 21:41:00.589672    8598 checks.go:104] validating the container runtime
+I0505 21:41:00.775764    8598 checks.go:639] validating whether swap is enabled or not
+I0505 21:41:00.784734    8598 checks.go:370] validating the presence of executable crictl
+I0505 21:41:00.785291    8598 checks.go:370] validating the presence of executable conntrack
+I0505 21:41:00.786148    8598 checks.go:370] validating the presence of executable ip
+I0505 21:41:00.786219    8598 checks.go:370] validating the presence of executable iptables
+I0505 21:41:00.786246    8598 checks.go:370] validating the presence of executable mount
+I0505 21:41:00.786258    8598 checks.go:370] validating the presence of executable nsenter
+I0505 21:41:00.786419    8598 checks.go:370] validating the presence of executable ebtables
+I0505 21:41:00.786563    8598 checks.go:370] validating the presence of executable ethtool
+I0505 21:41:00.786599    8598 checks.go:370] validating the presence of executable socat
+I0505 21:41:00.786635    8598 checks.go:370] validating the presence of executable tc
+I0505 21:41:00.786666    8598 checks.go:370] validating the presence of executable touch
+I0505 21:41:00.786678    8598 checks.go:516] running all checks
+I0505 21:41:00.841423    8598 checks.go:401] checking whether the given node name is valid and reachable using net.LookupHost
+I0505 21:41:00.860906    8598 checks.go:605] validating kubelet version
+I0505 21:41:01.118818    8598 checks.go:130] validating if the "kubelet" service is enabled and active
+I0505 21:41:01.187276    8598 checks.go:203] validating availability of port 10250
+I0505 21:41:01.188958    8598 checks.go:280] validating the existence of file /etc/kubernetes/pki/ca.crt
+I0505 21:41:01.189052    8598 checks.go:430] validating if the connectivity type is via proxy or direct
+I0505 21:41:01.189374    8598 checks.go:329] validating the contents of file /proc/sys/net/bridge/bridge-nf-call-iptables
+I0505 21:41:01.189536    8598 checks.go:329] validating the contents of file /proc/sys/net/ipv4/ip_forward
+I0505 21:41:01.189918    8598 join.go:532] [preflight] Discovering cluster-info
+I0505 21:41:01.190021    8598 token.go:80] [discovery] Created cluster-info discovery client, requesting info from "10.0.2.15:6443"
+I0505 21:41:01.214181    8598 token.go:217] [discovery] Failed to request cluster-info, will try again: Get "https://10.0.2.15:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.0.2.15:6443: connect: connection refused
+I0505 21:41:07.566945    8598 token.go:217] [discovery] Failed to request cluster-info, will try again: Get "https://10.0.2.15:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.0.2.15:6443: connect: connection refused
+I0505 21:41:14.060702    8598 token.go:217] [discovery] Failed to request cluster-info, will try again: Get "https://10.0.2.15:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.0.2.15:6443: connect: connection refused
+I0505 21:41:19.899460    8598 token.go:217] [discovery] Failed to request cluster-info, will try again: Get "https://10.0.2.15:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.0.2.15:6443: connect: connection refused
+I0505 21:41:25.640309    8598 token.go:217] [discovery] Failed to request cluster-info, will try again: Get "https://10.0.2.15:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.0.2.15:6443: connect: connection refused
+I0505 21:41:31.995627    8598 token.go:217] [discovery] Failed to request cluster-info, will try again: Get "https://10.0.2.15:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.0.2.15:6443: connect: connection refused
+I0505 21:41:37.731924    8598 token.go:217] [discovery] Failed to request cluster-info, will try again: Get "https://10.0.2.15:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.0.2.15:6443: connect: connection refused
+I0505 21:41:43.354170    8598 token.go:217] [discovery] Failed to request cluster-info, will try again: Get "https://10.0.2.15:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.0.2.15:6443: connect: connection refused
+I0505 21:41:48.809280    8598 token.go:217] [discovery] Failed to request cluster-info, will try again: Get "https://10.0.2.15:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.0.2.15:6443: connect: connection refused
+I0505 21:41:54.246886    8598 token.go:217] [discovery] Failed to request cluster-info, will try again: Get "https://10.0.2.15:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 10.0.2.15:6443: connect: connection refused
+^C
+root@w1:/home/vagrant# kubeadm join 192.168.99.201:6443 --token 6mklff.6mje1ast8em9qxlw --discovery-token-ca-cert-hash sha256:e09e8695f04f511fc423538b48ad141d78b556140ed2569319d109a454de2eca --v=5
+I0505 22:10:54.553610    8624 join.go:413] [preflight] found NodeName empty; using OS hostname as NodeName
+I0505 22:10:54.557118    8624 initconfiguration.go:122] detected and using CRI socket: unix:///var/run/containerd/containerd.sock
+[preflight] Running pre-flight checks
+I0505 22:10:54.558013    8624 preflight.go:93] [preflight] Running general checks
+I0505 22:10:54.558508    8624 checks.go:280] validating the existence of file /etc/kubernetes/kubelet.conf
+I0505 22:10:54.558940    8624 checks.go:280] validating the existence of file /etc/kubernetes/bootstrap-kubelet.conf
+I0505 22:10:54.559190    8624 checks.go:104] validating the container runtime
+I0505 22:10:54.729914    8624 checks.go:639] validating whether swap is enabled or not
+I0505 22:10:54.731333    8624 checks.go:370] validating the presence of executable crictl
+I0505 22:10:54.732095    8624 checks.go:370] validating the presence of executable conntrack
+I0505 22:10:54.732779    8624 checks.go:370] validating the presence of executable ip
+I0505 22:10:54.733478    8624 checks.go:370] validating the presence of executable iptables
+I0505 22:10:54.733983    8624 checks.go:370] validating the presence of executable mount
+I0505 22:10:54.734027    8624 checks.go:370] validating the presence of executable nsenter
+I0505 22:10:54.734041    8624 checks.go:370] validating the presence of executable ebtables
+I0505 22:10:54.734066    8624 checks.go:370] validating the presence of executable ethtool
+I0505 22:10:54.734090    8624 checks.go:370] validating the presence of executable socat
+I0505 22:10:54.734172    8624 checks.go:370] validating the presence of executable tc
+I0505 22:10:54.734365    8624 checks.go:370] validating the presence of executable touch
+I0505 22:10:54.734407    8624 checks.go:516] running all checks
+I0505 22:10:54.809992    8624 checks.go:401] checking whether the given node name is valid and reachable using net.LookupHost
+I0505 22:10:54.810541    8624 checks.go:605] validating kubelet version
+I0505 22:10:55.063292    8624 checks.go:130] validating if the "kubelet" service is enabled and active
+I0505 22:10:55.102466    8624 checks.go:203] validating availability of port 10250
+I0505 22:10:55.102727    8624 checks.go:280] validating the existence of file /etc/kubernetes/pki/ca.crt
+I0505 22:10:55.102757    8624 checks.go:430] validating if the connectivity type is via proxy or direct
+I0505 22:10:55.102906    8624 checks.go:329] validating the contents of file /proc/sys/net/bridge/bridge-nf-call-iptables
+I0505 22:10:55.103136    8624 checks.go:329] validating the contents of file /proc/sys/net/ipv4/ip_forward
+I0505 22:10:55.103210    8624 join.go:532] [preflight] Discovering cluster-info
+I0505 22:10:55.104211    8624 token.go:80] [discovery] Created cluster-info discovery client, requesting info from "192.168.99.201:6443"
+I0505 22:10:55.190067    8624 token.go:118] [discovery] Requesting info from "192.168.99.201:6443" again to validate TLS against the pinned public key
+I0505 22:10:55.279941    8624 token.go:135] [discovery] Cluster info signature and contents are valid and TLS certificate validates against pinned roots, will use API Server "192.168.99.201:6443"
+I0505 22:10:55.284437    8624 discovery.go:52] [discovery] Using provided TLSBootstrapToken as authentication credentials for the join process
+I0505 22:10:55.284801    8624 join.go:546] [preflight] Fetching init configuration
+I0505 22:10:55.284806    8624 join.go:592] [preflight] Retrieving KubeConfig objects
+[preflight] Reading configuration from the cluster...
+[preflight] FYI: You can look at this config file with 'kubectl -n kube-system get cm kubeadm-config -o yaml'
+I0505 22:10:55.493191    8624 kubeproxy.go:55] attempting to download the KubeProxyConfiguration from ConfigMap "kube-proxy"
+I0505 22:10:55.563037    8624 kubelet.go:74] attempting to download the KubeletConfiguration from ConfigMap "kubelet-config"
+I0505 22:10:55.576827    8624 initconfiguration.go:114] skip CRI socket detection, fill with the default CRI socket unix:///var/run/containerd/containerd.sock
+I0505 22:10:55.577338    8624 interface.go:432] Looking for default routes with IPv4 addresses
+I0505 22:10:55.577380    8624 interface.go:437] Default route transits interface "enp0s3"
+I0505 22:10:55.577666    8624 interface.go:209] Interface enp0s3 is up
+I0505 22:10:55.577956    8624 interface.go:257] Interface "enp0s3" has 2 addresses :[10.0.2.15/24 fe80::a9:eeff:fe4b:682f/64].
+I0505 22:10:55.577994    8624 interface.go:224] Checking addr  10.0.2.15/24.
+I0505 22:10:55.578008    8624 interface.go:231] IP found 10.0.2.15
+I0505 22:10:55.578020    8624 interface.go:263] Found valid IPv4 address 10.0.2.15 for interface "enp0s3".
+I0505 22:10:55.578032    8624 interface.go:443] Found active IP 10.0.2.15 
+I0505 22:10:55.606690    8624 preflight.go:104] [preflight] Running configuration dependant checks
+I0505 22:10:55.606869    8624 controlplaneprepare.go:225] [download-certs] Skipping certs download
+I0505 22:10:55.606885    8624 kubelet.go:121] [kubelet-start] writing bootstrap kubelet config file at /etc/kubernetes/bootstrap-kubelet.conf
+I0505 22:10:55.657846    8624 kubelet.go:136] [kubelet-start] writing CA certificate at /etc/kubernetes/pki/ca.crt
+I0505 22:10:55.668059    8624 kubelet.go:157] [kubelet-start] Checking for an existing Node in the cluster with name "w1" and status "Ready"
+I0505 22:10:55.693050    8624 kubelet.go:172] [kubelet-start] Stopping the kubelet
+[kubelet-start] Writing kubelet configuration to file "/var/lib/kubelet/config.yaml"
+[kubelet-start] Writing kubelet environment file with flags to file "/var/lib/kubelet/kubeadm-flags.env"
+[kubelet-start] Starting the kubelet
+[kubelet-start] Waiting for the kubelet to perform the TLS Bootstrap...
+I0505 22:10:58.348040    8624 kubelet.go:220] [kubelet-start] preserving the crisocket information for the node
+I0505 22:10:58.348159    8624 patchnode.go:31] [patchnode] Uploading the CRI Socket information "unix:///var/run/containerd/containerd.sock" to the Node API object "w1" as an annotation
+I0505 22:10:58.348425    8624 cert_rotation.go:137] Starting client certificate rotation controller
+
+This node has joined the cluster:
+* Certificate signing request was sent to apiserver and a response was received.
+* The Kubelet was informed of the new secure connection details.
+
+Run 'kubectl get nodes' on the control-plane to see this node join the cluster.
+
+root@w1:/home/vagrant# 

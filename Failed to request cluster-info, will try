@@ -1,0 +1,5 @@
+Failed to request cluster-info, will try again: Get "https://192.168.99.201:6443/api/v1/namespaces/kube-public/configmaps/cluster-info?timeout=10s": dial tcp 192.168.99.201:6443: 
+
+
+Failed to request cluster-info, will try again:
+connect: invalid argument

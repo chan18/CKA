@@ -34,6 +34,8 @@ Vagrant.configure("2") do |config|
   end
 
   # for ifconfig
-  config.vm.provision 'net-tools'
+  config.vm.provision "shell", inline: <<-SHELL
+    sudo apt-get install -y net-tools
+  SHELL
 
 end
