@@ -1,3 +1,153 @@
+
+vagrant ssh m1
+
+
+kubectl create deployment hello-world --image=psk8s.azurecr.io/hello-app:1.0
+
+
+kubectl run hello-world-pod --image=psk8s.azurecr.io/hello-app:1.0
+
+
+kubectl get pods
+kubectl get pods -o wide
+
+
+vagrant ssh w2
+
+
+sudo crictl --runtime-endpoint unix:///run/containerd/containerd.sock ps
+
+exit
+
+vagrant ssh m1
+
+kubectl logs -n default hello-world-pod 
+kubectl logs hello-world-pod 
+
+kubectl get pods --all-namespaces
+kubectl describe pod -n default hello-world-pod
+
+kubectl exec -it  hello-world-pod -- /bin/sh
+hostname
+ip addr
+exit
+
+
+kubectl get deployment hello-world
+kubectl get replicaset
+kubectl get pods
+
+
+kubectl describe deployment hello-world | more
+
+
+kubectl describe replicaset hello-world | more
+
+
+kubectl describe pod hello-world-[tab][tab] | more
+
+
+kubectl expose deployment hello-world \
+     --port=80 \
+     --target-port=8080
+
+
+kubectl get service hello-world
+
+
+kubectl describe service hello-world
+
+
+curl http://$SERVCIEIP:$PORT
+
+curl http://10.97.29.35:80
+
+kubectl get endpoints hello-world
+curl http://$ENDPOINT:$TARGETPORT
+
+curl http://10.244.190.71:8080
+
+kubectl get deployment hello-world -o yaml | more 
+kubectl get deployment hello-world -o json | more 
+
+kubectl get all
+kubectl delete service hello-world
+kubectl delete deployment hello-world
+kubectl delete pod hello-world-pod
+kubectl get all
+
+
+kubectl create deployment hello-world \
+     --image=psk8s.azurecr.io/hello-app:1.0 \
+     --dry-run=client -o yaml | more 
+
+
+kubectl create deployment hello-world \
+     --image=psk8s.azurecr.io/hello-app:1.0 \
+     --dry-run=client -o yaml > deployment.yaml
+
+
+more deployment.yaml
+
+
+kubectl apply -f deployment.yaml
+
+
+kubectl expose deployment hello-world \
+     --port=80 --target-port=8080 \
+     --dry-run=client -o yaml | more
+
+
+kubectl expose deployment hello-world \
+     --port=80 --target-port=8080 \
+     --dry-run=client -o yaml > service.yaml 
+
+
+more service.yaml 
+
+
+kubectl apply -f service.yaml 
+
+
+kubectl get all
+
+vi deployment.yaml
+Change spec.replicas from 1 to 20
+     replicas: 20
+
+
+kubectl apply -f deployment.yaml
+
+
+kubectl get deployment hello-world
+kubectl get pods | more 
+
+
+kubectl get service hello-world
+curl http://$SERVICEIP:PORT
+
+
+kubectl edit deployment hello-world
+
+
+kubectl get deployment hello-world
+
+
+kubectl scale deployment hello-world --replicas=40
+kubectl get deployment hello-world
+
+
+kubectl delete deployment hello-world
+kubectl delete service hello-world
+kubectl get all
+
+
+
+
+
+
+# debugging
+
 cat /usr/lib/systemd/system/kubelet.service.d/10-kubeadm.conf
 cat /etc/systemd/system/kubelet.service.d/10-kubeadm.conf
 
