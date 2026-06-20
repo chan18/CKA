@@ -1,0 +1,16 @@
+It's a Wrap!
+Welcome to the Final Challenge!
+
+This is your last chance to experiment in the environment. Clicking Finish Lab will end this little world that flittered into existence just for you.
+
+Take this opportunity to try new things. Don't be afraid to break anything; be curious!
+
+Here are some things to try out:
+
+Use curl to connect to the api-server and list the nodes in the clusters–use the kubectl get nodes -v command if needed to obtain the http endpoint.
+Use the kubectl explain command to learn more about each of the parts of the pod specification . You have unlimited power within this virtual world—take the time you need for unguided learning.
+Related Courses and Labs:
+
+Managing the Kubernetes API Server and Pods
+
+
