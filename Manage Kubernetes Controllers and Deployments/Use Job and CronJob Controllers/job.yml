@@ -1,0 +1,17 @@
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: hey-ps
+spec:
+  template:
+    spec:
+      containers:
+      - name: busybox
+        image: busybox:1.36
+        args:
+        - /bin/sh
+        - -c
+        - echo "$(date) - Hello PluralSight!"
+      restartPolicy: Never
+

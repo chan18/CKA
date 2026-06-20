@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: nfs-app
+  namespace: challenge3
+spec:
+  containers:
+  - name: busybox
+    image: busybox:1.36
+    imagePullPolicy: IfNotPresent
+    command: ["/bin/sh", "-c", "while true; do echo Hello NFS! > /mnt/data/challenge3-nfs.log; sleep 3600; done"]
+    volumeMounts:
+    - mountPath: "/mnt/data"
+      name: nfs-volume
+  volumes:
+  - name: nfs-volume
+    persistentVolumeClaim:
+      claimName: nfs-pvc
+
